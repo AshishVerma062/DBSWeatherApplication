@@ -11,9 +11,11 @@ DEPLOYING THE APPLICATION <br />
 
 I have built the project in Spring Tool Suite, we can import the project in STS and to deploy, we can directly right click on the project and run as 'Spring Boot App'.
 
-The application will start on server '9010'. 
+The application will start on server '9010'.
 
-Below dummy cities have also been added in ServletContext on application start-up.
+Tokens to Darksky, Mongolabs have been added in the application.properties file.
+
+Below dummy cities have also been added in ServletContext on application start-up.<br />
 City (CityName, Country, Lattitude, Longitude)
 
 "Austin", "TX", "30.3079827", "-97.8934863"<br />
