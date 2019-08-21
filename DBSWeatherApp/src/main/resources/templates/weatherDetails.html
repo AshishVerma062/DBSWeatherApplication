@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Weather Details</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script>
+  	function submitForm(){
+  		var cities = document.getElementById("cities");
+  		var cityName = cities.options[cities.selectedIndex].value;
+  		window.location.href = '/weather/details/'+ cityName;
+  	}
+  </script>
+</head>
+
+<body>
+	<h3 class="ml-2 mt-3">Weather Details of a city</h3>
+	<form id="weatherForm" action="/weather/details/" method="GET">
+		<select id="cities" th:onchange="submitForm();" class="ml-2 mt-2" style="width: 250px;height: 35px;">
+		    <option th:each="city : ${cities}" th:value="${city}" th:text="${city}" th:selected="${city.equalsIgnoreCase(selectedCity)}">
+		    </option>
+		</select>
+		<h4 class="ml-2 mt-4">Current Weather details</h4>
+		<table border="1" class="table table-striped ml-2 mr-2 mt-2">
+			<tr>
+				<th>Summary</th>
+				<th>Temperature(&#8457;)</th>
+				<th>Humidity(%)</th>
+				<th>Pressure(hPa)</th>
+				<th>UV Index</th>
+				<th>WindSpeed(m/s)</th>
+				<th>Visibility(kms)</th>
+				<th>Cloud Cover(%)</th>
+			</tr>
+			<tr>
+				<td th:text="${weatherDetail.currently.summary}">Summary</td>
+				<td th:text="${weatherDetail.currently.temperature}">Temperature</td>
+				<td th:text="${weatherDetail.currently.humidity * 100}">Humidity</td>
+				<td th:text="${weatherDetail.currently.pressure}">Pressure</td>
+				<td th:text="${weatherDetail.currently.uvIndex}">UV Index</td>
+				<td th:text="${weatherDetail.currently.windSpeed}">WindSpeed</td>
+				<td th:text="${weatherDetail.currently.visibility}">Visibility</td>
+				<td th:text="${weatherDetail.currently.cloudCover * 100}">Cloud Cover</td>
+			</tr>
+		</table>
+		<h4 class="ml-2 mt-4">Following Days weather forecast</h4>
+		<table border="1" class="table table-striped ml-2 mr-2 mt-2">
+			<tr>
+				<th>Date</th>
+				<th>Day</th>
+				<th>Summary</th>
+				<th>Maximum Temperature(&#8457;)</th>
+				<th>Minimum Temperature(&#8457;)</th>
+			</tr>
+			<tr th:each="followingDayForecast : ${followingDayForecasts}">
+				<td th:text="${followingDayForecast.date}">Date</td>
+				<td th:text="${followingDayForecast.day}">Day</td>
+				<td th:text="${followingDayForecast.summary}">Summary</td>
+				<td th:text="${followingDayForecast.maxTemperature}">Maximum Temperature</td>
+				<td th:text="${followingDayForecast.minTemperature}">Minimum Temperature</td>
+			</tr>
+		</table>
+	
+	</form>
+</body>
+
+</html>
